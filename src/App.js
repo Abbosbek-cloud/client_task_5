@@ -5,17 +5,20 @@ import Login from "./pages/Login";
 import Chat from "./pages/Chat";
 import Signup from "./pages/Signup";
 import Navigation from "./components/Navigation";
+import { Container } from "react-bootstrap";
 
 function App() {
   return (
     <Router>
       <Navigation />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/chat" element={<Chat />} />
-      </Routes>
+      <Container>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/chat" element={<Chat />} />
+        </Routes>
+      </Container>
     </Router>
   );
 }

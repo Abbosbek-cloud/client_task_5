@@ -1,0 +1,20 @@
+.home__bg {
+  background-image: url("../assets/itransition_group.jpeg");
+  height: 90vh;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  object-fit: cover;
+  overflow-x: hidden;
+}
+
+.left-side {
+  height: 90vh;
+  display: flex;
+  align-items: center;
+}
+
+.home-message-icon {
+  margin-left: 10px;
+  display: inline-block;
+}
