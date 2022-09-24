@@ -8,17 +8,10 @@ const Home = () => {
     <Row>
       <Col
         md={6}
-        className="d-flex h-100 flex-direction-column align-items-center justify-content-center left-side"
+        className="d-flex h-100vh flex-direction-column align-items-center justify-content-center left-side"
       >
-        <div
-          style={{
-            height: "90vh",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
-          className="d-flex flex-direction-column align-items-center justify-content-center"
-        >
-          <h2>
+        <div>
+          <h2 sx={{ textAlign: "center" }}>
             Welcome to our Chat App! Find friends and share your thoughts!
           </h2>
           <p>This app lets you connect with your friends!</p>
