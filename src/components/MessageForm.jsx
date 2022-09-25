@@ -70,6 +70,7 @@ const MessageForm = () => {
                 Your conversation with {privateMemberMessage.name}
                 <img
                   src={privateMemberMessage.picture || altImages}
+                  alt={privateMemberMessage.name}
                   className="conversation-profile-pic"
                 />
               </div>
@@ -85,7 +86,7 @@ const MessageForm = () => {
               {messageById?.map(({ content, time, from: sender }, msgIdx) => (
                 <div
                   className={
-                    sender?.email == user?.email
+                    sender?.email === user?.email
                       ? "message"
                       : "incoming-message"
                   }
@@ -95,6 +96,7 @@ const MessageForm = () => {
                     <div className="d-flex align-items-center mb-3">
                       <img
                         src={sender.picture || altImages}
+                        alt={sender.name}
                         style={{
                           width: 35,
                           height: 35,
@@ -104,7 +106,7 @@ const MessageForm = () => {
                         }}
                       />
                       <p className="message-sender">
-                        {sender._id == user?._id ? "You" : sender.name}
+                        {sender._id === user?._id ? "You" : sender.name}
                       </p>
                     </div>
                     <p className="message-content">{content}</p>

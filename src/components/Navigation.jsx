@@ -11,7 +11,7 @@ import { altImages } from "./Sidebar";
 
 function Navigation() {
   const user = useSelector((state) => state.user);
-  const [logOut, { isLoading, error }] = useLogOutUserMutation();
+  const [logOut] = useLogOutUserMutation();
   const handleLogOut = async (e) => {
     e.preventDefault();
     await logOut(user);
