@@ -60,7 +60,7 @@ const Sidebar = () => {
 
   const getRooms = () => {
     axios({
-      url: "http://localhost:5000/rooms",
+      url: "myAdmin@gmail.com/rooms",
       method: "GET",
     }).then((res) => {
       setRooms(res.data);
