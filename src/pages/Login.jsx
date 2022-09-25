@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
+import { AppContext } from "../context/appContext";
 import { useLoginUserMutation } from "../services/appApi";
 import "../styles/Login.css";
 
@@ -11,7 +12,7 @@ const Login = () => {
   });
   const [loginUser, { isLoading, error }] = useLoginUserMutation();
   const navigate = useNavigate();
-
+  const { socket } = useContext(AppContext);
   const handleChange = (e) => {
     const { value, name } = e.target;
     setData({
@@ -24,6 +25,9 @@ const Login = () => {
     e.preventDefault();
     loginUser(data).then(({ data }) => {
       if (data) {
+        // socket works here
+        socket.emit("new-user");
+        // then navigate to chat
         navigate("/chat");
       }
     });
