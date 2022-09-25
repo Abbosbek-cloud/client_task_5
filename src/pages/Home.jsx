@@ -1,9 +1,12 @@
 import React from "react";
 import { Button, Col, Row } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import "../styles/Home.css";
 
 const Home = () => {
+  const user = useSelector((state) => state.user);
+  console.log(user);
   return (
     <Row>
       <Col

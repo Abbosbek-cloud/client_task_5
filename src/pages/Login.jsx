@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useLoginUserMutation } from "../services/appApi";
 import "../styles/Login.css";
 
 const Login = () => {
@@ -8,6 +9,8 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const [loginUser, { isLoading, error }] = useLoginUserMutation();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { value, name } = e.target;
@@ -19,7 +22,11 @@ const Login = () => {
 
   const handleSendDaata = async (e) => {
     e.preventDefault();
-    console.log(data);
+    loginUser(data).then(({ data }) => {
+      if (data) {
+        navigate("/chat");
+      }
+    });
   };
   return (
     <Row>

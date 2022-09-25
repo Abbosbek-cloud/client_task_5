@@ -1,16 +1,18 @@
 import { useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../styles/Signup.css";
 import profile from "../assets/profile.png";
-import axios from "axios";
-
+import { useSignupUserMutation } from "../services/appApi";
 const Signup = () => {
   const [data, setData] = useState({
     name: "",
     email: "",
     password: "",
   });
+  const [signUpUser, { isLoading, error }] = useSignupUserMutation();
+
+  const navigate = useNavigate();
 
   const [image, setImage] = useState({
     uploading: false,
@@ -65,7 +67,12 @@ const Signup = () => {
     e.preventDefault();
     if (!image.img) return;
     const url = await uploadImage();
-    console.log(url);
+    const newData = { ...data, picture: url };
+    signUpUser(newData).then(({ data }) => {
+      if (data) {
+        navigate("/chat");
+      }
+    });
   };
 
   return (
