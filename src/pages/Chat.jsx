@@ -4,6 +4,8 @@ import MessageForm from "../components/MessageForm";
 import Sidebar from "../components/Sidebar";
 
 const Chat = () => {
+  let api = process.env.BACKEND_API;
+  console.log("API", api);
   return (
     <Row>
       <Col md={4}>
