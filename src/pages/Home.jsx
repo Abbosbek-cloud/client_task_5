@@ -6,7 +6,7 @@ import "../styles/Home.css";
 
 const Home = () => {
   const user = useSelector((state) => state.user);
-  console.log(user);
+
   return (
     <Row>
       <Col
