@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import logo from "../assets/logo.jpeg";
 import { useLogOutUserMutation } from "../services/appApi";
+import { altImages } from "./Sidebar";
 
 function Navigation() {
   const user = useSelector((state) => state.user);
@@ -26,11 +27,16 @@ function Navigation() {
         </LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto">
+          <Nav className="ms-auto d-flex align-items-center">
             {!user && (
-              <LinkContainer to="/login">
-                <Nav.Link>Login</Nav.Link>
-              </LinkContainer>
+              <>
+                <LinkContainer to="/login">
+                  <Nav.Link>Login</Nav.Link>
+                </LinkContainer>
+                <LinkContainer to="/signup">
+                  <Nav.Link>Register</Nav.Link>
+                </LinkContainer>
+              </>
             )}
             <LinkContainer to="/chat">
               <Nav.Link>Chat</Nav.Link>
@@ -40,7 +46,7 @@ function Navigation() {
                 title={
                   <>
                     <img
-                      src={user.picture}
+                      src={user.picture || altImages}
                       alt={user.name}
                       style={{
                         width: 30,

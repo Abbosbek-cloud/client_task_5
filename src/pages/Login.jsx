@@ -10,7 +10,7 @@ const Login = () => {
     email: "",
     password: "",
   });
-  const [loginUser, { isLoading, error }] = useLoginUserMutation();
+  const [loginUser] = useLoginUserMutation();
   const navigate = useNavigate();
   const { socket } = useContext(AppContext);
   const handleChange = (e) => {

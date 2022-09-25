@@ -10,7 +10,7 @@ const Signup = () => {
     email: "",
     password: "",
   });
-  const [signUpUser, { isLoading, error }] = useSignupUserMutation();
+  const [signUpUser] = useSignupUserMutation();
 
   const navigate = useNavigate();
 
