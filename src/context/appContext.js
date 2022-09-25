@@ -1,7 +1,7 @@
 import { io } from "socket.io-client";
 import { createContext } from "react";
 
-const SOCKET_URI = process.env.BACKEND_API || "http://localhost:5000";
+const SOCKET_URI = "https://abek-task5.herokuapp.com";
 
 export const socket = io(SOCKET_URI);
 
