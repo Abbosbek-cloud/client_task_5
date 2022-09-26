@@ -1,32 +1,35 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+// define a service user a base URL
+
 const appApi = createApi({
   reducerPath: "appApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `https://abek-task5.herokuapp.com`,
+    baseUrl: "http://localhost:5001",
   }),
 
   endpoints: (builder) => ({
-    // signup user data
+    // creating the user
     signupUser: builder.mutation({
       query: (user) => ({
-        url: `/users`,
+        url: "/users",
         method: "POST",
         body: user,
       }),
     }),
 
-    // login user
+    // login
     loginUser: builder.mutation({
       query: (user) => ({
-        url: `/users/login`,
+        url: "/users/login",
         method: "POST",
         body: user,
       }),
     }),
 
     // logout
-    logOutUser: builder.mutation({
+
+    logoutUser: builder.mutation({
       query: (payload) => ({
         url: "/logout",
         method: "DELETE",
@@ -39,7 +42,7 @@ const appApi = createApi({
 export const {
   useSignupUserMutation,
   useLoginUserMutation,
-  useLogOutUserMutation,
+  useLogoutUserMutation,
 } = appApi;
 
 export default appApi;

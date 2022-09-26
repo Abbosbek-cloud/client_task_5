@@ -67,7 +67,7 @@ const Signup = () => {
     e.preventDefault();
     if (!image.img) return;
     const url = await uploadImage();
-    const newData = { ...data, picture: url };
+    const newData = { ...data, picture: url || "" };
     signUpUser(newData).then(({ data }) => {
       if (data) {
         navigate("/chat");

@@ -28,17 +28,42 @@ const Sidebar = () => {
     if (!user) {
       alert("Please login");
     }
+
     socket.emit("join-room", room);
+
     setCurrentRoom(room);
+
     if (isPulic) {
       setPrivateMemberMessage(null);
     }
-
-    //
-    socket.off("notifications").on("notifications", (room) => {
-      if (currentRoom !== room) dispatch(addNotifications(room));
-    });
   };
+
+  socket.off("notifications").on("notifications", (room) => {
+    if (currentRoom !== room) dispatch(addNotifications(room));
+  });
+
+  useEffect(() => {
+    if (user) {
+      setCurrentRoom("General");
+      getRooms();
+      socket.emit("join-room", "General");
+      socket.emit("new-user");
+    }
+    /* eslint-disable */
+  }, []);
+
+  socket.off("new-user").on("new-user", (payload) => {
+    setMembers(payload);
+  });
+
+  function getRooms() {
+    axios({
+      url: "https://abek-task5.herokuapp.com/rooms",
+      method: "GET",
+    }).then((res) => {
+      setRooms(res.data);
+    });
+  }
 
   const handleRoomIds = (room1, room2) => {
     if (room1 > room2) {
@@ -54,28 +79,6 @@ const Sidebar = () => {
     joinRoom(roomId, false);
   };
 
-  socket.off("new-user").on("new-user", (payload) => {
-    setMembers(payload);
-  });
-
-  const getRooms = () => {
-    axios({
-      url: "myAdmin@gmail.com/rooms",
-      method: "GET",
-    }).then((res) => {
-      setRooms(res.data);
-    });
-  };
-
-  useEffect(() => {
-    if (user) {
-      setCurrentRoom("General");
-      getRooms();
-      socket.emit("join-room", "General");
-      socket.emit("new-user");
-    }
-    /* eslint-disable */
-  }, []);
   if (!user) return <></>;
 
   return (
@@ -99,7 +102,7 @@ const Sidebar = () => {
         ))}
       </ListGroup>
       <h2>Members</h2>
-      <ListGroup>
+      <ListGroup style={{ height: "calc(100vh - 345px)", overflowY: "scroll" }}>
         {members?.map((member) => {
           return (
             <ListGroup.Item

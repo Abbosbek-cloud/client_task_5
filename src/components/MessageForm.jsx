@@ -47,9 +47,11 @@ const MessageForm = () => {
       today.getMinutes() < 10 ? "0" + today.getMinutes() : today.getMinutes();
     const time =
       today.getHours() < 10
-        ? "0" + today.getHours()
+        ? "0" + today.getHours() + ":" + minutes
         : today.getHours() + ":" + minutes;
+
     const roomId = currentRoom;
+    console.log({ roomId, message, user, time, todayDate });
     socket.emit("message-room", roomId, message, user, time, todayDate);
     setMessage("");
   };
@@ -78,44 +80,48 @@ const MessageForm = () => {
           </>
         )}
         {user &&
-          messages?.map(({ _id, messageById }, index) => (
-            <div key={index}>
-              <p className="alert alert-info text-center message-date-indicator">
-                {_id}
-              </p>
-              {messageById?.map(({ content, time, from: sender }, msgIdx) => (
-                <div
-                  className={
-                    sender?.email === user?.email
-                      ? "message"
-                      : "incoming-message"
-                  }
-                  key={msgIdx}
-                >
-                  <div className="message-inner">
-                    <div className="d-flex align-items-center mb-3">
-                      <img
-                        src={sender.picture || altImages}
-                        alt={sender.name}
-                        style={{
-                          width: 35,
-                          height: 35,
-                          objectFit: "cover",
-                          borderRadius: "50%",
-                          marginRight: 10,
-                        }}
-                      />
-                      <p className="message-sender">
-                        {sender._id === user?._id ? "You" : sender.name}
-                      </p>
-                    </div>
-                    <p className="message-content">{content}</p>
-                    <p className="message-timestamp-left">{time}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ))}
+          messages?.map((msg, index) => {
+            console.log(msg);
+            // console.log(sender);
+            // return (
+            //   <div key={index}>
+            //     <p className="alert alert-info text-center message-date-indicator">
+            //       {_id}
+            //     </p>
+            //     {messageById?.map(({ content, time, from: sender }, msgIdx) => (
+            //       <div
+            //         className={
+            //           sender?.email === user?.email
+            //             ? "message"
+            //             : "incoming-message"
+            //         }
+            //         key={msgIdx}
+            //       >
+            //         <div className="message-inner">
+            //           <div className="d-flex align-items-center mb-3">
+            //             <img
+            //               src={sender.picture || altImages}
+            //               alt={sender.name}
+            //               style={{
+            //                 width: 35,
+            //                 height: 35,
+            //                 objectFit: "cover",
+            //                 borderRadius: "50%",
+            //                 marginRight: 10,
+            //               }}
+            //             />
+            //             <p className="message-sender">
+            //               {sender._id === user?._id ? "You" : sender.name}
+            //             </p>
+            //           </div>
+            //           <p className="message-content">{content}</p>
+            //           <p className="message-timestamp-left">{time}</p>
+            //         </div>
+            //       </div>
+            //     ))}
+            //   </div>
+            // );
+          })}
       </div>
       <form onSubmit={handleSubmit}>
         <Row>
