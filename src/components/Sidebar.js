@@ -36,7 +36,7 @@ function Sidebar() {
   }
 
   socket.off("notifications").on("notifications", (room) => {
-    if (currentRoom != room) dispatch(addNotifications(room));
+    if (currentRoom !== room) dispatch(addNotifications(room));
   });
 
   useEffect(() => {
@@ -46,6 +46,7 @@ function Sidebar() {
       socket.emit("join-room", "general");
       socket.emit("new-user");
     }
+    // disable next line
   }, []);
 
   socket.off("new-user").on("new-user", (payload) => {
@@ -83,7 +84,7 @@ function Sidebar() {
           <ListGroup.Item
             key={idx}
             onClick={() => joinRoom(room)}
-            active={room == currentRoom}
+            active={room === currentRoom}
             style={{
               cursor: "pointer",
               display: "flex",
@@ -105,7 +106,7 @@ function Sidebar() {
           <ListGroup.Item
             key={member.id}
             style={{ cursor: "pointer" }}
-            active={privateMemberMsg?._id == member?._id}
+            active={privateMemberMsg?._id === member?._id}
             onClick={() => handlePrivateMemberMsg(member)}
             disabled={member._id === user._id}
           >
@@ -113,9 +114,10 @@ function Sidebar() {
               <Col xs={2} className="member-status">
                 <img
                   src={member.picture || ALT_IMG}
+                  alt={member.name}
                   className="member-status-img"
                 />
-                {member.status == "online" ? (
+                {member.status === "online" ? (
                   <i className="fas fa-circle sidebar-online-status"></i>
                 ) : (
                   <i className="fas fa-circle sidebar-offline-status"></i>
@@ -124,7 +126,7 @@ function Sidebar() {
               <Col xs={9}>
                 {member.name}
                 {member._id === user?._id && " (You)"}
-                {member.status == "offline" && " (Offline)"}
+                {member.status === "offline" && " (Offline)"}
               </Col>
               <Col xs={1}>
                 <span className="badge rounded-pill bg-primary">

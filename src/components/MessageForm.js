@@ -27,10 +27,6 @@ function MessageForm() {
     return month + "/" + day + "/" + year;
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-  }
-
   function scrollToBottom() {
     messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }
@@ -67,6 +63,7 @@ function MessageForm() {
                 Your conversation with {privateMemberMsg.name}{" "}
                 <img
                   src={privateMemberMsg.picture || ALT_IMG}
+                  alt={privateMemberMsg.name}
                   className="conversation-profile-pic"
                 />
               </div>
@@ -83,11 +80,10 @@ function MessageForm() {
               </p>
               {messagesByDate?.map(
                 ({ content, time, from: sender }, msgIdx) => {
-                  console.log(sender._id);
                   return (
                     <div
                       className={
-                        sender?.email == user?.email
+                        sender?.email === user?.email
                           ? "message"
                           : "incoming-message"
                       }
@@ -101,6 +97,7 @@ function MessageForm() {
                                 ? privateMemberMsg.picture || ALT_IMG
                                 : user.picture || ALT_IMG
                             }
+                            alt={user.name}
                             style={{
                               width: 35,
                               height: 35,

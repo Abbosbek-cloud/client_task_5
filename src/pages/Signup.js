@@ -3,7 +3,6 @@ import { Col, Container, Form, Row, Button } from "react-bootstrap";
 import { useSignupUserMutation } from "../services/appApi";
 import { Link, useNavigate } from "react-router-dom";
 import "./Signup.css";
-import botImg from "../assets/bot.jpeg";
 import { ALT_IMG } from "../constants/constants";
 
 function Signup() {
@@ -55,12 +54,13 @@ function Signup() {
     const url = await uploadImage(image);
     console.log(url);
     // signup the user
-    signupUser({ name, email, password, picture: url }).then(({ data }) => {
-      if (data) {
-        console.log(data);
-        navigate("/chat");
+    signupUser({ name, email, password, picture: url || ALT_IMG }).then(
+      ({ data }) => {
+        if (data) {
+          navigate("/chat");
+        }
       }
-    });
+    );
   }
 
   return (

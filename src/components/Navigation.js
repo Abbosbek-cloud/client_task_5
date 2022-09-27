@@ -5,21 +5,25 @@ import { useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import logo from "../assets/logo.png";
 import { ALT_IMG } from "../constants/constants";
+import { useNavigate } from "react-router-dom";
 function Navigation() {
   const user = useSelector((state) => state.user);
   const [logoutUser] = useLogoutUserMutation();
+
+  const navigate = useNavigate();
+
   async function handleLogout(e) {
     e.preventDefault();
     await logoutUser(user);
-    // redirect to home page
-    window.location.replace("/");
+
+    navigate("/");
   }
   return (
     <Navbar bg="light" expand="lg">
       <Container>
         <LinkContainer to="/">
           <Navbar.Brand>
-            <img src={logo} style={{ width: 50, height: 50 }} />
+            <img src={logo} alt="logotip" style={{ width: 50, height: 50 }} />
           </Navbar.Brand>
         </LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -39,6 +43,7 @@ function Navigation() {
                   <>
                     <img
                       src={user.picture || ALT_IMG}
+                      alt={user.name}
                       style={{
                         width: 30,
                         height: 30,

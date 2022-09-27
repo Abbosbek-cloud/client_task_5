@@ -1,11 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { BASE_URL } from "../constants/constants";
 
 // define a service user a base URL
 
 const appApi = createApi({
   reducerPath: "appApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: URL,
+    baseUrl: BASE_URL,
   }),
 
   endpoints: (builder) => ({
