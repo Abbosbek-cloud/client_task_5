@@ -82,36 +82,47 @@ function MessageForm() {
                 {date}
               </p>
               {messagesByDate?.map(
-                ({ content, time, from: sender }, msgIdx) => (
-                  <div
-                    className={
-                      sender?.email == user?.email
-                        ? "message"
-                        : "incoming-message"
-                    }
-                    key={msgIdx}
-                  >
-                    <div className="message-inner">
-                      <div className="d-flex align-items-center mb-3">
-                        <img
-                          src={sender.picture || ALT_IMG}
-                          style={{
-                            width: 35,
-                            height: 35,
-                            objectFit: "cover",
-                            borderRadius: "50%",
-                            marginRight: 10,
-                          }}
-                        />
-                        <p className="message-sender">
-                          {sender._id == user?._id ? "You" : sender.name}
-                        </p>
+                ({ content, time, from: sender }, msgIdx) => {
+                  console.log(sender._id);
+                  return (
+                    <div
+                      className={
+                        sender?.email == user?.email
+                          ? "message"
+                          : "incoming-message"
+                      }
+                      key={msgIdx}
+                    >
+                      <div className="message-inner">
+                        <div className="d-flex align-items-center mb-3">
+                          <img
+                            src={
+                              privateMemberMsg && sender._id !== user._id
+                                ? privateMemberMsg.picture || ALT_IMG
+                                : user.picture || ALT_IMG
+                            }
+                            style={{
+                              width: 35,
+                              height: 35,
+                              objectFit: "cover",
+                              borderRadius: "50%",
+                              marginRight: 10,
+                            }}
+                          />
+                          <p className="message-sender">
+                            {sender._id === user?._id
+                              ? "You"
+                              : privateMemberMsg
+                              ? privateMemberMsg.name
+                              : sender.name}
+                          </p>
+                        </div>
+                        <p className="message-content">{content}</p>
+                        <p className="message-timestamp-left">{time}</p>
                       </div>
-                      <p className="message-content">{content}</p>
-                      <p className="message-timestamp-left">{time}</p>
                     </div>
-                  </div>
-                )
+                  );
+                }
               )}
             </div>
           ))}
