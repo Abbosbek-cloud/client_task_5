@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import { ALT_IMG } from "../constants/constants";
 import { AppContext } from "../context/appContext";
 import "./MessageForm.css";
 function MessageForm() {
@@ -65,7 +66,7 @@ function MessageForm() {
               <div>
                 Your conversation with {privateMemberMsg.name}{" "}
                 <img
-                  src={privateMemberMsg.picture}
+                  src={privateMemberMsg.picture || ALT_IMG}
                   className="conversation-profile-pic"
                 />
               </div>
@@ -93,7 +94,7 @@ function MessageForm() {
                     <div className="message-inner">
                       <div className="d-flex align-items-center mb-3">
                         <img
-                          src={sender.picture}
+                          src={sender.picture || ALT_IMG}
                           style={{
                             width: 35,
                             height: 35,

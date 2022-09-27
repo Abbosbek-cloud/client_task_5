@@ -16,19 +16,20 @@ export const userSlice = createSlice({
       delete state.newMessages[payload];
     },
   },
+
   extraReducers: (builder) => {
-    // save the user after signup
+    // save user after signup
     builder.addMatcher(
       appApi.endpoints.signupUser.matchFulfilled,
       (state, { payload }) => payload
     );
-    // save the user after login
+    // save user after login
     builder.addMatcher(
       appApi.endpoints.loginUser.matchFulfilled,
       (state, { payload }) => payload
     );
-    // delete user after logout
-    builder.addMatcher(appApi.endpoints.logOutUser.matchFulfilled, () => null);
+    // logout: destroy user session
+    builder.addMatcher(appApi.endpoints.logoutUser.matchFulfilled, () => null);
   },
 });
 

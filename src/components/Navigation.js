@@ -1,42 +1,34 @@
-import { Button } from "react-bootstrap";
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
+import React from "react";
+import { Nav, Navbar, Container, Button, NavDropdown } from "react-bootstrap";
+import { useLogoutUserMutation } from "../services/appApi";
 import { useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
-import logo from "../assets/logo.jpeg";
-import { useLogOutUserMutation } from "../services/appApi";
-import { altImages } from "./Sidebar";
-
+import logo from "../assets/logo.png";
+import { ALT_IMG } from "../constants/constants";
 function Navigation() {
   const user = useSelector((state) => state.user);
-  const [logOut] = useLogOutUserMutation();
-  const handleLogOut = async (e) => {
+  const [logoutUser] = useLogoutUserMutation();
+  async function handleLogout(e) {
     e.preventDefault();
-    await logOut(user);
-    if (!user) window.location.replace("/");
-  };
+    await logoutUser(user);
+    // redirect to home page
+    window.location.replace("/");
+  }
   return (
     <Navbar bg="light" expand="lg">
       <Container>
         <LinkContainer to="/">
           <Navbar.Brand>
-            <img src={logo} style={{ width: 40, height: 40 }} alt="logo" />
+            <img src={logo} style={{ width: 50, height: 50 }} />
           </Navbar.Brand>
         </LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto d-flex align-items-center">
+          <Nav className="ms-auto">
             {!user && (
-              <>
-                <LinkContainer to="/login">
-                  <Nav.Link>Login</Nav.Link>
-                </LinkContainer>
-                <LinkContainer to="/signup">
-                  <Nav.Link>Register</Nav.Link>
-                </LinkContainer>
-              </>
+              <LinkContainer to="/login">
+                <Nav.Link>Login</Nav.Link>
+              </LinkContainer>
             )}
             <LinkContainer to="/chat">
               <Nav.Link>Chat</Nav.Link>
@@ -46,14 +38,13 @@ function Navigation() {
                 title={
                   <>
                     <img
-                      src={user.picture || altImages}
-                      alt={user.name}
+                      src={user.picture || ALT_IMG}
                       style={{
                         width: 30,
                         height: 30,
-                        borderRadius: "50%",
                         marginRight: 10,
                         objectFit: "cover",
+                        borderRadius: "50%",
                       }}
                     />
                     {user.name}
@@ -68,10 +59,10 @@ function Navigation() {
                 <NavDropdown.Item href="#action/3.3">
                   Something
                 </NavDropdown.Item>
-                <NavDropdown.Divider />
+
                 <NavDropdown.Item>
-                  <Button onClick={handleLogOut} variant="danger">
-                    Log Out
+                  <Button variant="danger" onClick={handleLogout}>
+                    Logout
                   </Button>
                 </NavDropdown.Item>
               </NavDropdown>

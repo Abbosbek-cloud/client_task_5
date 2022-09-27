@@ -1,9 +1,7 @@
 import { io } from "socket.io-client";
-import { createContext } from "react";
-import { LOCAL } from "../constants/constant";
-
-const SOCKET_URI = LOCAL;
-
-export const socket = io(SOCKET_URI);
-
-export const AppContext = createContext();
+import React from "react";
+import { BASE_URL } from "../constants/constants";
+const SOCKET_URL = BASE_URL;
+export const socket = io(SOCKET_URL);
+// app context
+export const AppContext = React.createContext();
